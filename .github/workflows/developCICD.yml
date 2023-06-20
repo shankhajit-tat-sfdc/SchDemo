@@ -9,6 +9,7 @@ on:
     branches: ["develop"]
   pull_request:
     branches: ["develop"]
+  workflow_dispatch:
    # Jobs to be executed
 jobs:
     deploy-acc:
