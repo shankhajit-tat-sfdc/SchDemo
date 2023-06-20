@@ -19,9 +19,14 @@ The `sfdx-project.json` file contains useful configuration information for your 
 
 
 
-Steps:
-Clone the repo to the WorkSpace Folder
-Create a salesforce project with same name as remote repo
-Check out develop branch
-Add changed files to staging and commit
-push your changes
+## Steps:
+- Clone the repo to the WorkSpace Folder
+- Create a salesforce project with same name as remote repo
+- Check out develop branch
+- Add changed files to staging and commit
+- push your changes
+
+## Develop for a feature
+- Create a feature branch from remote develop
+- Add your change to staging and commit
+- push ur changes to remote
