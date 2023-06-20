@@ -1,0 +1,27 @@
+
+# This is a basic workflow to perform automatic deployment to Org
+
+name: DeploytoProd
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the develop branch
+  push:
+    branches: ["develop"]
+  pull_request:
+    branches: ["develop"]
+   # Jobs to be executed
+jobs:
+    deploy-acc:
+        runs-on: ubuntu-latest
+        steps:
+        # Checkout the source code
+            - name: 'Checkout source code'
+              uses: actions/checkout@v2
+       # Install Salesforce CLI AND DEPLOY TO sit
+            - uses: sfdx-actions/setup-sfdx@v1
+              with:
+               sfdx-auth-url: ${{ secrets.SIT_AUTH_SECRET }}
+            - name: 'Push source to Acc org'
+              run: sfdx force:source:deploy -p force-app/main/default
+
+   
