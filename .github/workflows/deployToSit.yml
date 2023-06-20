@@ -1,0 +1,33 @@
+# This is a basic workflow to to deploy merged code from develop to SIT
+
+name: deployToSit
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "develop" ]
+    
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+ deploy-sit:
+        runs-on: ubuntu-latest
+        steps:
+        # Checkout the source code
+            - name: 'Checkout source code'
+              uses: actions/checkout@v2
+        # Install Salesforce CLI AND DEPLOY TO sit
+            - uses: sfdx-actions/setup-sfdx@v1
+              with:
+               sfdx-auth-url: ${{ secrets.SIT_AUTH_SECRET }}
+            - name: 'Push source to Acc org'
+              run: sfdx force:source:deploy --testlevel RunLocalTests  -p force-app/main/default --verbose
+        # Run Apex Test post deployment
+            - uses: sfdx-actions/setup-sfdx@v1
+              with:
+               sfdx-auth-url: ${{ secrets.SIT_AUTH_SECRET }}
+            - name: 'Run Local Test and validate the test coverage'
+              run: sfdx force:apex:test:run -l RunLocalTests --codecoverage --resultformat human -d ./
