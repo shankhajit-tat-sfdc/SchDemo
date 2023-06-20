@@ -1,7 +1,7 @@
 
-# This is a basic workflow to perform automatic deployment to Org
+# This is a basic workflow to validate pull request from feature branch to develop 
 
-name: ValidatePullRequestToDevelop
+name: ValidatePullRequestsToDevelop
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the develop branch
