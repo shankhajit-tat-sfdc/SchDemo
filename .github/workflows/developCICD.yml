@@ -1,7 +1,7 @@
 
 # This is a basic workflow to perform automatic deployment to Org
 
-name: DeploytoProd
+name: DeploytoSIT
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the develop branch
