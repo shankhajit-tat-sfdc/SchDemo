@@ -23,6 +23,6 @@ jobs:
               with:
                sfdx-auth-url: ${{ secrets.SIT_AUTH_SECRET }}
             - name: 'Push source to Acc org'
-              run: sfdx force:source:deploy -p force-app/main/default
+              run: sfdx force:source:deploy --testlevel RunLocalTests --checkonly  -p force-app/main/default --verbose
 
    
