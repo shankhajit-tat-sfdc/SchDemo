@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
    # Jobs to be executed
 jobs:
-    deploy-acc:
+    validate-pull-req-in-sit:
         runs-on: ubuntu-latest
         steps:
         # Checkout the source code
