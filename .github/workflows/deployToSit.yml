@@ -26,8 +26,5 @@ jobs:
             - name: 'Push source to Acc org'
               run: sfdx force:source:deploy --testlevel RunLocalTests  -p force-app/main/default --verbose
         # Run Apex Test post deployment
-            - uses: sfdx-actions/setup-sfdx@v1
-              with:
-               sfdx-auth-url: ${{ secrets.SIT_AUTH_SECRET }}
             - name: 'Run Local Test and validate the test coverage'
               run: sfdx force:apex:test:run -l RunLocalTests --codecoverage --resultformat human -d ./
