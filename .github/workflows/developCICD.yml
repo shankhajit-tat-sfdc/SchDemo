@@ -17,7 +17,7 @@ jobs:
         steps:
         # Checkout the source code
             - name: 'Checkout source code'
-              uses: actions/checkout@v3
+            - uses: actions/checkout@v3
        # Install Salesforce CLI 
             - name: 'Install sfdx cli'
             - uses: sfdx-actions/setup-sfdx@v1
