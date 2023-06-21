@@ -27,6 +27,6 @@ jobs:
       # Validate Apex Code using PMD default rule set
             - name: Check APEX Code using PMD ruleset
               uses: legetz/setup-pmd@v6.48
-            - run: pmd --dir ./force-app/main/default/classes -R category/apex/design.xml -f text
+            - run: pmd --dir force-app/main/default/classes -R category/apex/design.xml -f text
 
    
