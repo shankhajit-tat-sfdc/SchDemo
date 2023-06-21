@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
    # Jobs to be executed
 jobs:
-    validate-pull-req-in-sit:
+    validate-pull-req-to-develop:
         runs-on: ubuntu-latest
         steps:
         # Checkout the source code
@@ -24,11 +24,9 @@ jobs:
                sfdx-auth-url: ${{ secrets.SIT_AUTH_SECRET }}
             - name: 'validate source against sit org'
               run: sfdx force:source:deploy --testlevel RunLocalTests --checkonly  -p force-app/main/default --verbose
-    check-apex:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Check APEX Code using PMD ruleset
-            uses: legetz/setup-pmd@v6.48
-          - run: pmd --dir ./force-app/main/default/classes -R category/apex/design.xml -f text
+      # Validate Apex Code using PMD default rule set
+            - name: Check APEX Code using PMD ruleset
+              uses: legetz/setup-pmd@v6.48
+            - run: pmd --dir ./force-app/main/default/classes -R category/apex/design.xml -f text
 
    
