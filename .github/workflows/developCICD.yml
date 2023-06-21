@@ -17,10 +17,10 @@ jobs:
         steps:
         # Checkout the source code
             - name: 'Checkout source code'
-            - uses: actions/checkout@v3
+              uses: actions/checkout@v3
        # Install Salesforce CLI 
             - name: 'Install sfdx cli'
-            - uses: sfdx-actions/setup-sfdx@v1
+              uses: sfdx-actions/setup-sfdx@v1
               with:
                sfdx-auth-url: ${{ secrets.SIT_AUTH_SECRET }}
        # Validate deployment against sit
@@ -28,18 +28,21 @@ jobs:
               run: sfdx force:source:deploy --testlevel RunLocalTests --checkonly  -p force-app/main/default --verbose
        # Setup Java     
             - name: 'setup java'
-            - uses: actions/setup-java@v3
+              uses: actions/setup-java@v3
               with:
                 distribution: 'temurin'
                 java-version: '11'
-        # Setup PMD
-            - uses: pmd/pmd-github-action@v1
+        # Setup and run PMD rules
+            - name: 'Setup and run PMD rules'
+              uses: pmd/pmd-github-action@v1
               id: pmd
               with:
                 sourcePath: 'force-app/main/default'
                 rulesets: 'rulesets/apex/ruleset.xml'
+            - name: 'log output'
+              run: echo "pmd outout is => ${{steps.pmd.outputs}}"
         # Validate PMD violation
-            - name: Fail build if there are violations
+            - name: Fail build if there are violation
               if: steps.pmd.outputs.violations != 0
               run: exit 1
       
