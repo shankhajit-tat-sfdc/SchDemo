@@ -41,7 +41,8 @@ jobs:
                 rulesets: 'rulesets/apex/ruleset.xml'
                 analyzeModifiedFilesOnly : false
             - name: 'log output'
-              run: echo "pmd outout is => ${{steps.pmd.outputs}}"
+              if: steps.pmd.outputs.violations != 0
+              run: echo "pmd outout is => ${{steps.pmd.outputs.violations}}"
         # Validate PMD violation
             - name: Fail build if there are violation
               if: steps.pmd.outputs.violations != 0
