@@ -18,11 +18,17 @@ jobs:
         # Checkout the source code
             - name: 'Checkout source code'
               uses: actions/checkout@v2
-       # Install Salesforce CLI AND DEPLOY TO sit
+       # Install Salesforce CLI and validate deployment against sit
             - uses: sfdx-actions/setup-sfdx@v1
               with:
                sfdx-auth-url: ${{ secrets.SIT_AUTH_SECRET }}
-            - name: 'Push source to Acc org'
+            - name: 'validate source against sit org'
               run: sfdx force:source:deploy --testlevel RunLocalTests --checkonly  -p force-app/main/default --verbose
+    check-apex:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Check APEX Code using PMD ruleset
+            uses: legetz/setup-pmd@v6.48
+          - run: pmd --dir ./force-app/main/default/classes -R category/apex/design.xml -f text
 
    
