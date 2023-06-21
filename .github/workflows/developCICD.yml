@@ -39,6 +39,7 @@ jobs:
               with:
                 sourcePath: 'force-app/main/default'
                 rulesets: 'rulesets/apex/ruleset.xml'
+                analyzeModifiedFilesOnly : false
             - name: 'log output'
               run: echo "pmd outout is => ${{steps.pmd.outputs}}"
         # Validate PMD violation
